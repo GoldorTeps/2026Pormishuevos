@@ -1,0 +1,30 @@
+destino: /mnt/khauron/mundial2026
+duracion_min: 200
+antelacion_min: 2
+comodin: https://5fe2654d6127d.streamlock.net/trc/videotrc/playlist.m3u8  # TUDN México — derechos completos del Mundial
+
+audio:
+  ser:      https://playerservices.streamtheworld.com/api/livestream-redirect/CADENASER.mp3
+  w_radio:  https://playerservices.streamtheworld.com/api/livestream-redirect/WRADIO.mp3
+
+# Mapa equipo → URL stream M3U8 público
+# Si ningún equipo del partido tiene canal asignado, se asume la pérdida.
+# Prioridad: se usa el primer equipo (local) que tenga canal asignado.
+canales:
+  España:         https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
+  Japón:          https://nhk4.mov3.co/hls/nhk.m3u8
+  Corea del Sur:  http://amdlive-ch01.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/playlist.m3u8
+  Alemania:       https://daserste-live.ard-mcdn.de/daserste/live/hls/int/master.m3u8
+  Brasil:         https://59d39900ebfb8.streamlock.net/globo-720p/globo-720p/playlist.m3u8
+  Colombia:       https://live20.bozztv.com/akamaissh101/ssh101/qMUAZEy/playlist.m3u8
+  Ecuador:        https://live20.bozztv.com/akamaissh101/ssh101/qMUAZEy/playlist.m3u8
+  Marruecos:      https://cdn.live.easybroadcast.io/abr_corp/83_medi1tv-arabic_g90v4ec/playlist_dvr.m3u8
+  Qatar:          https://live.kwikmotion.com/qtv1live/qtv1.smil/playlist.m3u8
+  Paraguay:       https://alba-py-snt-snt.stream.mediatiquestream.com/index.m3u8
+  México:         https://5fe2654d6127d.streamlock.net/trc/videotrc/playlist.m3u8
+  Uruguay:        https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
+  Argentina:      https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
+  Portugal:       https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
+  Inglaterra:     https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
+  Francia:        https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
+  # Pendiente verificar: FranceTV M3U8, TV Pública Argentina, MBC Korea
