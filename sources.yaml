@@ -1,5 +1,5 @@
 destino: /mnt/khauron/mundial2026
-duracion_min: 200
+duracion_min: 120  # fase de grupos: 90 min + 30 de margen (sin prórroga)
 antelacion_min: 2
 comodin: https://5fe2654d6127d.streamlock.net/trc/videotrc/playlist.m3u8  # TUDN México — derechos completos del Mundial
 
