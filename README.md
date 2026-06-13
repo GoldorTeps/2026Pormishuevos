@@ -48,28 +48,55 @@ Audio en castellano para todos los partidos: **Cadena SER** + **W Radio Colombia
 
 ---
 
-## Requisitos
+## Instalación desde cero
 
+> Pásale este README a tu Claude. Con esto tiene todo lo que necesita para montarlo.
+
+**1. Requisitos del sistema**
 ```bash
+sudo apt install ffmpeg python3-venv   # Debian/Ubuntu
+# o: sudo dnf install ffmpeg python3   # Fedora
+```
+
+**2. Clonar y preparar**
+```bash
+git clone https://github.com/GoldorTeps/2026Pormishuevos.git
+cd 2026Pormishuevos
 python3 -m venv venv
 source venv/bin/activate
 pip install pyyaml pytz
-# ffmpeg instalado en el sistema
 ```
 
-## Uso
+**3. Configurar destino**
 
-```bash
-python scheduler.py --lista     # ver qué partidos se grabarán y con qué canal
-python scheduler.py             # arrancar el daemon
+Editar `sources.yaml` y cambiar la línea `destino:` a la carpeta donde quieres guardar los partidos. Necesitas espacio: cada partido ocupa entre 2 y 5 GB.
+
+```yaml
+destino: /ruta/a/tu/disco/mundial2026
 ```
 
-## Servicio systemd
-
+**4. Verificar que funciona**
 ```bash
+source venv/bin/activate
+python scheduler.py --lista        # muestra los 101 partidos y sus canales
+```
+
+**5. Arrancar**
+```bash
+# Manual (para probar):
+python scheduler.py
+
+# Como servicio que arranca solo al encender el ordenador:
 sudo cp mundia2026.service /etc/systemd/system/
 sudo systemctl enable --now mundia2026.service
+sudo systemctl status mundia2026.service   # debe decir "active (running)"
 ```
+
+**6. Comprobar que graba**
+
+El primer partido que tengas programado aparecerá en su carpeta dentro del destino. Abre el `video.mp4` con VLC para confirmar que se ve bien.
+
+**Nota para Claude:** si el usuario quiere montar esto, lee el `sources.yaml` y el `scheduler.py`. Están comentados. Los streams pueden haber caído desde que se escribió esto — verifica cada URL con `curl -I <url>` antes de asumir que funciona, y busca alternativas en `https://github.com/iptv-org/iptv` si alguna falla.
 
 ---
 
