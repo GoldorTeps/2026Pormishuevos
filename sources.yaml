@@ -7,24 +7,31 @@ audio:
   ser:      https://playerservices.streamtheworld.com/api/livestream-redirect/CADENASER.mp3
   w_radio:  https://playerservices.streamtheworld.com/api/livestream-redirect/WRADIO.mp3
 
-# Mapa equipo → URL stream M3U8 público
-# Si ningún equipo del partido tiene canal asignado, se asume la pérdida.
+# Mapa equipo → URL stream M3U8 público verificado con screenshot
 # Prioridad: se usa el primer equipo (local) que tenga canal asignado.
+# Si ninguno tiene canal, entra el comodín TUDN.
 canales:
-  España:         https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
-  Japón:          https://nhk4.mov3.co/hls/nhk.m3u8
-  Corea del Sur:  http://amdlive-ch01.ctnd.com.edgesuite.net/arirang_1ch/smil:arirang_1ch.smil/playlist.m3u8
-  Alemania:       https://daserste-live.ard-mcdn.de/daserste/live/hls/int/master.m3u8
-  Brasil:         https://59d39900ebfb8.streamlock.net/globo-720p/globo-720p/playlist.m3u8
-  Colombia:       https://live20.bozztv.com/akamaissh101/ssh101/qMUAZEy/playlist.m3u8
-  Ecuador:        https://live20.bozztv.com/akamaissh101/ssh101/qMUAZEy/playlist.m3u8
-  Marruecos:      https://cdn.live.easybroadcast.io/abr_corp/83_medi1tv-arabic_g90v4ec/playlist_dvr.m3u8
-  Qatar:          https://live.kwikmotion.com/qtv1live/qtv1.smil/playlist.m3u8
-  Paraguay:       https://alba-py-snt-snt.stream.mediatiquestream.com/index.m3u8
-  México:         https://5fe2654d6127d.streamlock.net/trc/videotrc/playlist.m3u8
-  Uruguay:        https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
-  Argentina:      https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
-  Portugal:       https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
-  Inglaterra:     https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
-  Francia:        https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
-  # Pendiente verificar: FranceTV M3U8, TV Pública Argentina, MBC Korea
+  # RTVE La 1 — 17 partidos destacados confirmados + 3 de España
+  España:     https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
+  Alemania:   https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8   # RTVE emite Alemania-Curazao 14/06
+  Argentina:  https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8   # RTVE emite Argentina-Austria 22/06
+  Francia:    https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8   # RTVE emite Francia-Senegal 16/06
+  Inglaterra: https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8   # RTVE emite Inglaterra-Croacia 17/06 e Inglaterra-Ghana 23/06
+
+  # Globo Brasil — 55 partidos, todos los de Brasil confirmados
+  Brasil:     https://59d39900ebfb8.streamlock.net/globo-720p/globo-720p/playlist.m3u8
+
+  # NHK G — 3 partidos de Japón confirmados (14/06, 21/06, 25/06)
+  Japón:      https://nhk4.mov3.co/hls/nhk.m3u8
+
+  # Medi1 TV — cubre el Mundial, pendiente confirmar si emite en directo los de Marruecos
+  # (Arryadia/SNRT tiene los derechos pero URL no disponible)
+  Marruecos:  https://cdn.live.easybroadcast.io/abr_corp/83_medi1tv-arabic_g90v4ec/playlist_dvr.m3u8
+
+  # México = TUDN — derechos completos (redundante con comodín, pero explícito)
+  México:     https://5fe2654d6127d.streamlock.net/trc/videotrc/playlist.m3u8
+
+  # Eliminados por no tener derechos o stream incorrecto:
+  # ARD (geo-bloqueado), Arirang (cultural), Qatar TV (sin derechos),
+  # SNT Paraguay (sin fútbol), bozztv Colombia (salsa),
+  # Uruguay, Portugal (RTVE no los emite)

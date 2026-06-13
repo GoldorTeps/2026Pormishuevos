@@ -121,6 +121,7 @@ def grabar_partido(partido, url, cfg):
     antelacion_seg = cfg['antelacion_min'] * 60
     destino_base   = cfg['destino']
     canales_audio  = cfg.get('audio', {})
+    comodin        = cfg.get('comodin')
 
     fecha    = partido['fecha_es']
     hora     = partido['hora_es']
@@ -130,7 +131,7 @@ def grabar_partido(partido, url, cfg):
 
     carpeta     = nombre_carpeta(partido)
     dir_partido = os.path.join(destino_base, carpeta)
-    ruta_video  = os.path.join(dir_partido, 'video.mp4')
+    ruta_video  = os.path.join(dir_partido, 'video.mkv')
 
     ahora  = time.time()
     espera = ts_inicio - ahora
@@ -154,15 +155,26 @@ def grabar_partido(partido, url, cfg):
 
     hilos = []
 
-    # Vídeo
+    # Vídeo principal (canal de país)
     hilos.append(threading.Thread(
         target=_ffmpeg_grabar,
         args=(url, ruta_video, duracion_seg,
-              os.path.join(dir_partido, 'video.log'),
-              ['-movflags', '+faststart']),
+              os.path.join(dir_partido, 'video.log'), None),
         daemon=True,
         name=f"{carpeta}-video",
     ))
+
+    # Vídeo backup TUDN (siempre, salvo que el canal principal ya sea TUDN)
+    if comodin and url != comodin:
+        ruta_tudn = os.path.join(dir_partido, 'video_tudn.mkv')
+        if not _ya_grabado(ruta_tudn, duracion_min):
+            hilos.append(threading.Thread(
+                target=_ffmpeg_grabar,
+                args=(comodin, ruta_tudn, duracion_seg,
+                      os.path.join(dir_partido, 'video_tudn.log'), None),
+                daemon=True,
+                name=f"{carpeta}-tudn",
+            ))
 
     # Audios en paralelo
     for nombre_radio, url_audio in canales_audio.items():
@@ -189,6 +201,14 @@ def grabar_partido(partido, url, cfg):
         log.info(f"✓ VIDEO OK ({size_mb:.0f} MB): {carpeta}")
     else:
         log.error(f"✗ VIDEO FALLO: {carpeta} — ver {dir_partido}/video.log")
+
+    if comodin and url != comodin:
+        ruta_tudn = os.path.join(dir_partido, 'video_tudn.mkv')
+        if _ya_grabado(ruta_tudn, duracion_min):
+            size_mb = os.path.getsize(ruta_tudn) / 1_048_576
+            log.info(f"✓ VIDEO TUDN OK ({size_mb:.0f} MB): {carpeta}")
+        else:
+            log.error(f"✗ VIDEO TUDN FALLO: {carpeta} — ver {dir_partido}/video_tudn.log")
 
     for nombre_radio in canales_audio:
         ruta_audio = os.path.join(dir_partido, f"{nombre_radio}.mp3")
