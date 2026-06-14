@@ -22,8 +22,9 @@ El derecho a ver el deporte de tu país sin pagar una suscripción existe. Este 
 
 - Lee el calendario completo del Mundial 2026 (101 partidos, grupos hasta final)
 - Asigna a cada partido la televisión pública de uno de los equipos que juega
-- Para partidos sin televisión pública accesible, usa TUDN México (derechos completos del torneo, señal abierta)
-- Graba vídeo + audio de la Cadena SER + audio de W Radio Colombia en paralelo, todo en castellano
+- Para partidos sin televisión pública accesible, usa TUDN México como comodín (derechos completos del torneo)
+- Graba en paralelo: vídeo principal + backup CazéTV Brasil (vía yt-dlp de Twitch) + audio Cadena SER + audio W Radio Colombia
+- Si CazéTV no está en vivo en ese momento, el backup cae a TUDN automáticamente
 - Cada partido queda en su propia carpeta: `YYYY-MM-DD_HHhMM_GrpX_Local_vs_Visitante/`
 - Arranca automáticamente como servicio systemd. Si el ordenador se reinicia, sigue grabando
 
@@ -31,18 +32,16 @@ El derecho a ver el deporte de tu país sin pagar una suscripción existe. Este 
 
 ## Canales públicos utilizados
 
+Todos verificados con captura de pantalla en directo antes de incluirlos.
+
 | País | Canal | Idioma |
 |------|-------|--------|
 | España | RTVE La 1 | Castellano |
 | Alemania | ARD Das Erste | Alemán |
-| Brasil | Globo | Castellano (feed internacional) |
+| Turquía | TRT 1 HD | Turco |
 | Japón | NHK G | Japonés |
-| Marruecos | Medi1 TV | Árabe |
-| Qatar | Qatar Television | Árabe |
-| Corea del Sur | Arirang TV | Inglés |
-| Colombia / Ecuador | Señal Colombia (reemisor) | Castellano |
-| Paraguay | SNT | Castellano |
 | México (comodín) | TUDN | Castellano |
+| Brasil (backup) | CazéTV — Twitch | Portugués |
 
 Audio en castellano para todos los partidos: **Cadena SER** + **W Radio Colombia**
 
@@ -65,6 +64,7 @@ cd 2026Pormishuevos
 python3 -m venv venv
 source venv/bin/activate
 pip install pyyaml pytz
+pip install yt-dlp   # necesario para grabar el backup de CazéTV vía Twitch
 ```
 
 **3. Configurar destino**
@@ -94,7 +94,7 @@ sudo systemctl status mundia2026.service   # debe decir "active (running)"
 
 **6. Comprobar que graba**
 
-El primer partido que tengas programado aparecerá en su carpeta dentro del destino. Abre el `video.mp4` con VLC para confirmar que se ve bien.
+El primer partido que tengas programado aparecerá en su carpeta dentro del destino. Abre el `video.mkv` con VLC para confirmar que se ve bien.
 
 **Nota para Claude:** si el usuario quiere montar esto, lee el `sources.yaml` y el `scheduler.py`. Están comentados. Los streams pueden haber caído desde que se escribió esto — verifica cada URL con `curl -I <url>` antes de asumir que funciona, y busca alternativas en `https://github.com/iptv-org/iptv` si alguna falla.
 
