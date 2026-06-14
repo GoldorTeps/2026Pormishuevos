@@ -61,6 +61,39 @@ def test_resolver_sin_canal_sin_comodin_devuelve_none():
     assert canal is None
 
 
+def test_resolver_override_por_partido_tiene_prioridad():
+    """canal_url en el partido tiene prioridad sobre equipo y comodín."""
+    partido = {
+        'local': 'España', 'visitante': 'Japón',
+        'canal_url': 'https://rtve.override/la1',
+        'canal_nombre': 'RTVE',
+    }
+    url, canal = resolver_fuente(partido, CANALES, COMODIN)
+    assert url == 'https://rtve.override/la1'
+    assert canal == 'RTVE'
+
+
+def test_resolver_override_gana_sobre_equipo_mapeado():
+    """Si un partido tiene canal_url, ignora el canal del equipo."""
+    partido = {
+        'local': 'Alemania', 'visitante': 'Ecuador',
+        'canal_url': 'https://rtve.es/la1',
+        'canal_nombre': 'RTVE',
+    }
+    url, canal = resolver_fuente(partido, CANALES, COMODIN)
+    # Alemania→ARD en CANALES, pero el override RTVE debe ganar
+    assert url == 'https://rtve.es/la1'
+    assert canal == 'RTVE'
+
+
+def test_resolver_sin_override_usa_equipo_normal():
+    """Sin canal_url, el comportamiento equipo→canal sigue igual."""
+    partido = {'local': 'España', 'visitante': 'Marruecos'}
+    url, canal = resolver_fuente(partido, CANALES, COMODIN)
+    assert url == 'https://rtve.es/la1'
+    assert canal == 'España'
+
+
 # ── slug ──────────────────────────────────────────────────────────────────────
 
 def test_slug_acentos():

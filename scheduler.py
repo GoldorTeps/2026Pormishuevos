@@ -55,6 +55,9 @@ def cargar():
 # ── Resolución de fuente ───────────────────────────────────────────────────────
 
 def resolver_fuente(partido, canales, comodin=None):
+    # Override por partido tiene máxima prioridad (RTVE, ARD específico, etc.)
+    if partido.get('canal_url'):
+        return partido['canal_url'], partido.get('canal_nombre', 'override')
     for equipo in [partido.get('local', ''), partido.get('visitante', '')]:
         if equipo in canales:
             return canales[equipo], equipo
