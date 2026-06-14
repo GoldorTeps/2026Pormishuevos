@@ -2,12 +2,13 @@ destino: /mnt/khauron/mundial2026
 duracion_min: 120  # fase de grupos: 90 min + 30 de margen (sin prórroga)
 antelacion_min: 2
 
-# Comodín principal — TUDN México (todos los derechos del Mundial). Verificado 14/06.
-comodin: https://streaming.alwaysdata.net/tudn.php
+# Comodín principal — TUDN México (todos los derechos del Mundial). Verificado 13/06 con ffprobe.
+# URL directa H264 720p 60fps — NO usar relay de terceros (alwaysdata, lura.live, etc.)
+comodin: https://5fe2654d6127d.streamlock.net/trc/videotrc/playlist.m3u8
 
-# CazéTV Brasil — todos los derechos del Mundial en Brasil, vía Twitch.
-# El scheduler lo graba en video_caze.mkv con yt-dlp; si no está en vivo, usa TUDN.
-comodin_ytdlp: https://www.twitch.tv/cazetv
+# CazéTV Brasil — 104 partidos en YouTube (no en Twitch). yt-dlp extrae la URL en vivo.
+# Si el canal no está en directo (sin partido), cae a TUDN como backup.
+comodin_ytdlp: https://www.youtube.com/cazetv
 
 audio:
   ser:      https://playerservices.streamtheworld.com/api/livestream-redirect/CADENASER.mp3
