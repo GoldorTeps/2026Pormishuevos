@@ -1,37 +1,33 @@
 destino: /mnt/khauron/mundial2026
 duracion_min: 120  # fase de grupos: 90 min + 30 de margen (sin prórroga)
 antelacion_min: 2
-comodin: https://5fe2654d6127d.streamlock.net/trc/videotrc/playlist.m3u8  # TUDN México — derechos completos del Mundial
+
+# Comodín principal — TUDN México (todos los derechos del Mundial). Verificado 14/06.
+comodin: https://streaming.alwaysdata.net/tudn.php
+
+# CazéTV Brasil — todos los derechos del Mundial en Brasil, vía Twitch.
+# El scheduler lo graba en video_caze.mkv con yt-dlp; si no está en vivo, usa TUDN.
+comodin_ytdlp: https://www.twitch.tv/cazetv
 
 audio:
   ser:      https://playerservices.streamtheworld.com/api/livestream-redirect/CADENASER.mp3
   w_radio:  https://playerservices.streamtheworld.com/api/livestream-redirect/WRADIO.mp3
 
-# Mapa equipo → URL stream M3U8 público verificado con screenshot
-# Prioridad: se usa el primer equipo (local) que tenga canal asignado.
+# Mapa equipo → URL stream M3U8 verificado con screenshot en directo.
+# Prioridad: se usa el primer equipo (local o visitante) que tenga canal asignado.
 # Si ninguno tiene canal, entra el comodín TUDN.
 canales:
-  # RTVE La 1 — 17 partidos destacados confirmados + 3 de España
+  # RTVE La 1 — partidos con interés español confirmados en su programación
   España:     https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
-  Alemania:   https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8   # RTVE emite Alemania-Curazao 14/06
-  Argentina:  https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8   # RTVE emite Argentina-Austria 22/06
-  Francia:    https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8   # RTVE emite Francia-Senegal 16/06
-  Inglaterra: https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8   # RTVE emite Inglaterra-Croacia 17/06 e Inglaterra-Ghana 23/06
+  Argentina:  https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
+  Francia:    https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
+  Inglaterra: https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8
 
-  # Globo Brasil — 55 partidos, todos los de Brasil confirmados
-  Brasil:     https://59d39900ebfb8.streamlock.net/globo-720p/globo-720p/playlist.m3u8
+  # ARD Das Erste — Alemania. Sin geo-bloqueo desde España. Verificado 14/06.
+  Alemania:   https://daserste-live.ard-mcdn.de/daserste/live/hls/int/master.m3u8
 
-  # NHK G — 3 partidos de Japón confirmados (14/06, 21/06, 25/06)
+  # TRT 1 HD — Turquía. Verificado con promo PB vs Japón hoy 22:00. Sin geo-bloqueo.
+  Turquía:    https://tv-trt1.medya.trt.com.tr/master.m3u8
+
+  # NHK G — Japón. Canal auténtico. Pendiente confirmar si emite partidos del Mundial.
   Japón:      https://nhk4.mov3.co/hls/nhk.m3u8
-
-  # Medi1 TV — cubre el Mundial, pendiente confirmar si emite en directo los de Marruecos
-  # (Arryadia/SNRT tiene los derechos pero URL no disponible)
-  Marruecos:  https://cdn.live.easybroadcast.io/abr_corp/83_medi1tv-arabic_g90v4ec/playlist_dvr.m3u8
-
-  # México = TUDN — derechos completos (redundante con comodín, pero explícito)
-  México:     https://5fe2654d6127d.streamlock.net/trc/videotrc/playlist.m3u8
-
-  # Eliminados por no tener derechos o stream incorrecto:
-  # ARD (geo-bloqueado), Arirang (cultural), Qatar TV (sin derechos),
-  # SNT Paraguay (sin fútbol), bozztv Colombia (salsa),
-  # Uruguay, Portugal (RTVE no los emite)
