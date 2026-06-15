@@ -38,7 +38,6 @@ def _setup_log():
 
 
 PIDFILE = os.path.join(BASE_DIR, 'mundia.pid')
-YTDLP   = os.path.join(BASE_DIR, 'venv/bin/yt-dlp')
 log = logging.getLogger(__name__)
 
 
@@ -108,22 +107,6 @@ def _ya_grabado(ruta, duracion_min):
     return dur >= duracion_min * 60 * 0.9
 
 
-# ── yt-dlp: obtener URL de stream en vivo ─────────────────────────────────────
-
-def _ytdlp_get_url(url_canal):
-    """Devuelve la URL M3U8 del stream en vivo, o None si el canal está offline."""
-    try:
-        out = subprocess.run(
-            [YTDLP, '--get-url', '-f', 'best[height<=720]/best', url_canal],
-            capture_output=True, text=True, timeout=30,
-        )
-        if out.returncode == 0:
-            return out.stdout.strip().split('\n')[0]
-    except Exception:
-        pass
-    return None
-
-
 # ── Grabación con ffmpeg ───────────────────────────────────────────────────────
 
 def _ffmpeg_grabar(url, ruta, duracion_seg, log_ruta, extra_flags=None):
@@ -184,29 +167,6 @@ def grabar_partido(partido, url, cfg):
         name=f"{carpeta}-video",
     ))
 
-    # Backup CazéTV vía yt-dlp (si está en vivo) o TUDN si no lo está
-    comodin_ytdlp = cfg.get('comodin_ytdlp')
-    ruta_caze     = os.path.join(dir_partido, 'video_caze.mkv')
-    if not _ya_grabado(ruta_caze, duracion_min):
-        url_caze = None
-        if comodin_ytdlp:
-            log.info(f"  Intentando CazéTV ({comodin_ytdlp})…")
-            url_caze = _ytdlp_get_url(comodin_ytdlp)
-            if url_caze:
-                log.info(f"  CazéTV en vivo ✓")
-            else:
-                log.info(f"  CazéTV offline — usando TUDN como backup")
-        backup_url = url_caze or (comodin if comodin and url != comodin else None)
-        backup_nombre = 'caze' if url_caze else 'tudn'
-        if backup_url and backup_url != url:
-            hilos.append(threading.Thread(
-                target=_ffmpeg_grabar,
-                args=(backup_url, ruta_caze, duracion_seg,
-                      os.path.join(dir_partido, f'video_{backup_nombre}.log'), None),
-                daemon=True,
-                name=f"{carpeta}-backup",
-            ))
-
     # Audios en paralelo
     for nombre_radio, url_audio in canales_audio.items():
         ruta_audio = os.path.join(dir_partido, f"{nombre_radio}.mp3")
@@ -232,12 +192,6 @@ def grabar_partido(partido, url, cfg):
         log.info(f"✓ VIDEO OK ({size_mb:.0f} MB): {carpeta}")
     else:
         log.error(f"✗ VIDEO FALLO: {carpeta} — ver {dir_partido}/video.log")
-
-    if _ya_grabado(ruta_caze, duracion_min):
-        size_mb = os.path.getsize(ruta_caze) / 1_048_576
-        log.info(f"✓ VIDEO BACKUP OK ({size_mb:.0f} MB): {carpeta}")
-    elif os.path.exists(ruta_caze):
-        log.error(f"✗ VIDEO BACKUP FALLO: {carpeta} — ver {dir_partido}/video_*.log")
 
     for nombre_radio in canales_audio:
         ruta_audio = os.path.join(dir_partido, f"{nombre_radio}.mp3")
@@ -295,7 +249,22 @@ def main():
         f.write(str(os.getpid()))
 
     import atexit
-    atexit.register(lambda: os.path.exists(PIDFILE) and os.remove(PIDFILE))
+    import signal as _signal
+
+    def _limpiar_pidfile():
+        try:
+            if os.path.exists(PIDFILE):
+                os.remove(PIDFILE)
+        except OSError:
+            pass
+
+    atexit.register(_limpiar_pidfile)
+
+    def _salir_limpio(sig, frame):
+        _limpiar_pidfile()
+        sys.exit(0)
+
+    _signal.signal(_signal.SIGTERM, _salir_limpio)
 
     os.makedirs(cfg['destino'], exist_ok=True)
 

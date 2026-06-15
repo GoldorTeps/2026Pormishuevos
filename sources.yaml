@@ -6,10 +6,6 @@ antelacion_min: 2
 # URL directa H264 720p 60fps — NO usar relay de terceros (alwaysdata, lura.live, etc.)
 comodin: https://5fe2654d6127d.streamlock.net/trc/videotrc/playlist.m3u8
 
-# CazéTV Brasil — 104 partidos en YouTube (no en Twitch). yt-dlp extrae la URL en vivo.
-# Si el canal no está en directo (sin partido), cae a TUDN como backup.
-comodin_ytdlp: https://www.youtube.com/cazetv
-
 audio:
   ser:      https://playerservices.streamtheworld.com/api/livestream-redirect/CADENASER.mp3
   w_radio:  https://playerservices.streamtheworld.com/api/livestream-redirect/WRADIO.mp3
