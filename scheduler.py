@@ -107,6 +107,43 @@ def _ya_grabado(ruta, duracion_min):
     return dur >= duracion_min * 60 * 0.9
 
 
+# ── Sin canal — carpeta + nota triste ─────────────────────────────────────────
+
+def sin_canal_partido(partido, cfg):
+    antelacion_seg = cfg['antelacion_min'] * 60
+    destino_base   = cfg['destino']
+
+    fecha    = partido['fecha_es']
+    hora     = partido['hora_es']
+    dt_naive = datetime.strptime(f"{fecha} {hora}", '%Y-%m-%d %H:%M')
+    dt_es    = SPAIN_TZ.localize(dt_naive)
+    ts_inicio = dt_es.timestamp() - antelacion_seg
+
+    carpeta     = nombre_carpeta(partido)
+    dir_partido = os.path.join(destino_base, carpeta)
+    ruta_nota   = os.path.join(dir_partido, 'no_grabado.txt')
+
+    ahora  = time.time()
+    espera = ts_inicio - ahora
+
+    if espera < 0:
+        return  # ya pasó
+
+    log.info(f"SIN CANAL — en {espera/3600:.1f}h dejaré nota: {carpeta}")
+    time.sleep(espera)
+
+    os.makedirs(dir_partido, exist_ok=True)
+    with open(ruta_nota, 'w') as f:
+        f.write(
+            f":(  \n\n"
+            f"Lamentablemente este partido no se ha podido grabar.\n"
+            f"No encontramos un canal de televisión accesible para este encuentro.\n\n"
+            f"{partido['local']} vs {partido['visitante']}\n"
+            f"{fecha}  {hora}\n"
+        )
+    log.info(f":(  nota escrita: {carpeta}")
+
+
 # ── Grabación con ffmpeg ───────────────────────────────────────────────────────
 
 def _ffmpeg_grabar(url, ruta, duracion_seg, log_ruta, extra_flags=None):
@@ -275,18 +312,24 @@ def main():
         url, canal = resolver_fuente(p, canales, comodin)
         if url is None:
             perdidos += 1
-            continue
-        programados += 1
-        t = threading.Thread(
-            target=grabar_partido,
-            args=(p, url, cfg),
-            daemon=False,
-            name=f"partido-{p['id']}",
-        )
+            t = threading.Thread(
+                target=sin_canal_partido,
+                args=(p, cfg),
+                daemon=False,
+                name=f"sincal-{p['id']}",
+            )
+        else:
+            programados += 1
+            t = threading.Thread(
+                target=grabar_partido,
+                args=(p, url, cfg),
+                daemon=False,
+                name=f"partido-{p['id']}",
+            )
         t.start()
         hilos.append(t)
 
-    log.info(f"Daemon arrancado — programados: {programados} | pérdida asumida: {perdidos}")
+    log.info(f"Daemon arrancado — programados: {programados} | sin canal: {perdidos}")
 
     for t in hilos:
         t.join()

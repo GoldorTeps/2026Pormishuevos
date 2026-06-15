@@ -2,9 +2,6 @@ destino: /mnt/khauron/mundial2026
 duracion_min: 120  # fase de grupos: 90 min + 30 de margen (sin prórroga)
 antelacion_min: 2
 
-# Comodín principal — TUDN México (todos los derechos del Mundial). Verificado 13/06 con ffprobe.
-# URL directa H264 720p 60fps — NO usar relay de terceros (alwaysdata, lura.live, etc.)
-comodin: https://5fe2654d6127d.streamlock.net/trc/videotrc/playlist.m3u8
 
 audio:
   ser:      https://playerservices.streamtheworld.com/api/livestream-redirect/CADENASER.mp3
@@ -32,5 +29,44 @@ canales:
   # Medi1 TV — Marruecos. HTTP 200 verificado 14/06.
   Marruecos:  https://cdn.live.easybroadcast.io/abr_corp/83_medi1tv-arabic_g90v4ec/playlist_dvr.m3u8
 
-# Nota: Francia, Argentina, Inglaterra → RTVE sólo en algunos partidos, no todos.
-# Sus partidos de RTVE están en partidos.json con canal_url. El resto cae a TUDN.
+  # Ovacion TV — Uruguay. Canal dedicado Copa 2026. Frame: "LA COPA EN OVACION GRUPO G". Verificado 15/06.
+  Uruguay:    http://cdn2.ujjina.com:1935/iptvovacion1/liveovacion1tv/playlist.m3u8
+
+  # A+ Ivoire — Costa de Marfil. Canal deportivo. Frame: "CONVOCATION" fútbol. Verificado 15/06.
+  "Costa de Marfil": http://69.64.57.208/atv/playlist.m3u8
+
+  # Arena Sport 1 BH — Bosnia y Herzegovina. Frame: Copa 2026 BEL 0-0 ECU en directo. Verificado 15/06.
+  "Bosnia y Herzegovina": https://nl1.nghk.ai/ArenaSport1BH/index.m3u8
+
+  # France 2 (proxy) — Francia. Frame: france•tv confirmado. Verificado 15/06.
+  Francia: http://69.64.57.208/france2/mono.m3u8
+
+  # Ecuavisa — Ecuador. Frame: presentadora con camiseta Ecuador. Verificado 15/06.
+  Ecuador: https://redirector.dps.live/hls-video/c54ac2799874375c81c1672abb700870537c5223/ecuavisa/ecuavisa.smil/playlist.m3u8
+
+  # Watania 1 — Túnez. TV nacional tunecina. Frame: presentadora noticias. Verificado 15/06.
+  Túnez: https://sw1.tanitweb.net/TunisiaTV/_definst_/watania1/playlist.m3u8
+
+  # SIC Alta Definição (okast FAST) — Portugal. Frame: serie SIC confirmada. Verificado 15/06.
+  Portugal: https://production-fast-sic.content.okast.tv/fa2e8c4385712f9aa54bbe52b1bd9b6b/channels/d9070446-8448-455e-8075-773b1ba12562/fc831b20-f252-4e7d-8cc5-2d05f4d43c1c/media_.m3u8
+
+  # RTS1 Sénégal (proxy 69.64.57.208) — Senegal. Frame: RTS logo + "DAKAR 2026 J-138". Verificado 15/06.
+  Senegal: http://69.64.57.208/rts1/playlist.m3u8
+
+  # KSA Sport 1 (aloula /9/) — Arabia Saudí. Frame: canal deportivo saudí. Verificado 15/06.
+  "Arabia Saudí": https://aloula-redirect.vercel.app/9/playlist.m3u8
+
+  # El Trece Argentina (proxy a050) — Argentina. Frame: Copa 2026 LIVE football en pantalla. Verificado 15/06.
+  Argentina: http://45.170.130.224:8000/play/a050/index.m3u8
+
+  # TyC Sports Argentina (proxy a020) — confirmado logo TyC Sports. Verificado 15/06.
+  # Argentina usa El Trece (a050) como primario — TyC Sports como referencia.
+
+  # Las Estrellas / Televisa Canal 2 (proxy a026) — México. Frame: logo Las Estrellas confirmado. Verificado 15/06.
+  México: http://45.170.130.224:8000/play/a026/index.m3u8
+
+  # SNT Paraguay (proxy a013) — Paraguay. Frame: logo "SNT | Paraguay" confirmado. Verificado 15/06.
+  Paraguay: http://45.170.130.224:8000/play/a013/index.m3u8
+
+# Nota: Canales confirmados con captura de frame y ffprobe.
+# Sin canal confirmado: Colombia, Países Bajos, Bélgica, Escocia, Estados Unidos, Argentina (algunos match), y fase KO.
