@@ -132,6 +132,13 @@ def sin_canal_partido(partido, cfg):
     log.info(f"SIN CANAL — en {espera/3600:.1f}h dejaré nota: {carpeta}")
     time.sleep(espera)
 
+    # Recargar para respetar omitir:true añadido en caliente
+    _, partidos_fresh = cargar()
+    p_fresh = next((p for p in partidos_fresh if p['id'] == partido['id']), partido)
+    if p_fresh.get('omitir'):
+        log.info(f"OMITIDO (omitir:true): {carpeta}")
+        return
+
     os.makedirs(dir_partido, exist_ok=True)
     with open(ruta_nota, 'w') as f:
         f.write(
@@ -189,6 +196,13 @@ def grabar_partido(partido, url, cfg):
     if espera > 0:
         log.info(f"PROGRAMADO en {espera/3600:.1f}h → {carpeta}")
         time.sleep(espera)
+
+    # Recargar para respetar omitir:true añadido en caliente
+    _, partidos_fresh = cargar()
+    p_fresh = next((p for p in partidos_fresh if p['id'] == partido['id']), partido)
+    if p_fresh.get('omitir'):
+        log.info(f"OMITIDO (omitir:true): {carpeta}")
+        return
 
     os.makedirs(dir_partido, exist_ok=True)
     log.info(f"▶ INICIO: {carpeta}")

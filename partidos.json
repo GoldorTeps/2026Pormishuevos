@@ -151,7 +151,8 @@
     "local": "Francia",
     "visitante": "Senegal",
     "sede": "MetLife Stadium",
-    "ciudad": "East Rutherford, NJ"
+    "ciudad": "East Rutherford, NJ",
+    "omitir": true
   },
   {
     "id": 15,
