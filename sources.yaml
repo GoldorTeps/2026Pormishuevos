@@ -70,11 +70,22 @@ canales:
   # SNT Paraguay (proxy a013) — Paraguay. Frame: logo "SNT | Paraguay" confirmado. Verificado 15/06.
   Paraguay: http://45.170.130.224:8000/play/a013/index.m3u8
 
-# Comodín — SNT Paraguay (El Trece, Canal 13). Tiene derechos Copa junto con GEN.
-# El 16/06 cubrió 3 de 4 partidos del día. Se usa para todos los partidos sin canal específico.
-# Riesgo: si el partido está solo en GEN (no en SNT), grabará programación regular.
-comodin: http://45.170.130.224:8000/play/a013/index.m3u8
-comodin_nombre: SNT Paraguay
+  # Al Kass 1 — Qatar. Plató Copa 2026 en pantalla, presentadores cataríes con logo Copa 2026. Verificado 17/06.
+  # Canal deportivo estatal de Qatar. Tiene derechos Copa para Qatar/MENA junto con beIN Sports.
+  Qatar: https://liveeu-gcp.alkassdigital.net/alkass1-p/main.m3u8
+
+  # Varzesh TV (IRIB) — Irán. Canal de deportes del estado iraní. Vivo (anuncio deportivo iraní). Verificado 17/06.
+  Irán: https://ncdn.telewebion.ir/varzesh/live/playlist.m3u8
+
+  # Uzbekistán Sport (cinerama.uz) — Uzbekistán. Anuncio "СМОТРИ ЧЕМПИОНАТ МИРА 2026" = confirma Copa. Verificado 17/06.
+  Uzbekistán: https://stream8.cinerama.uz/1004/tracks-v1a1/mono.m3u8
+
+  # ČT Sport HD — República Checa. Frame: logo "ČT sport HD", partido CUB vs CZE softball. Confirmado. Verificado 17/06.
+  Chequia: http://88.212.15.19/live/test_ctsport_25p/playlist.m3u8
+
+  # Caracol TV — Colombia. Frame: canal colombiano activo (teleshopping con nºs Bogotá/Medellín). Copa rights: 35 partidos. Verificado 17/06.
+  Colombia: http://138.121.15.230:9002/CARACOL/index.m3u8
 
 # Nota: Canales confirmados con captura de frame y ffprobe.
-# Estrategia: canal → parrilla (no equipo → canal). TV pública = acceso libre = grabamos su parrilla.
+# Estrategia: canal → parrilla real verificada. Solo se asigna un canal a los partidos
+# que ese canal efectivamente retransmite. Sin comodín — mejor sin fuente que fuente falsa.
