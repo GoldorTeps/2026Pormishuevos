@@ -71,6 +71,12 @@ canales:
   # SNT Paraguay (proxy a013) — Paraguay. Frame: logo "SNT | Paraguay" confirmado. Verificado 15/06.
   Paraguay: http://45.170.130.224:8000/play/a013/index.m3u8
 
+  # Al Iraqiya Sport (IMN Iraq) — Irak. Frame: TROFEO Copa 2026 + ticker "المنتخب العراقي...للقاء اسكتلندا في بوسطن". CONFIRMADO Copa 2026. Verificado 17/06.
+  Irak: https://imn-live.esite-lab.com/hls/iraqia-sports-1.m3u8
+
+  # Jordan Sport — Jordania. Frame: fútbol en vivo, estadio Al Ain, ticker deportivo árabe (12:33 UTC+3). Verificado 17/06.
+  Jordania: http://93.184.10.248/JordanSport/index.m3u8
+
   # Al Kass 1 — Qatar. Plató Copa 2026 en pantalla, presentadores cataríes con logo Copa 2026. Verificado 17/06.
   # Canal deportivo estatal de Qatar. Tiene derechos Copa para Qatar/MENA junto con beIN Sports.
   Qatar: https://liveeu-gcp.alkassdigital.net/alkass1-p/main.m3u8
