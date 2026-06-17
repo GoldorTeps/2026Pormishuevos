@@ -207,7 +207,9 @@
     "local": "Inglaterra",
     "visitante": "Croacia",
     "sede": "AT&T Stadium",
-    "ciudad": "Arlington, TX"
+    "ciudad": "Arlington, TX",
+    "canal_url": "https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8",
+    "canal_nombre": "RTVE La 1"
   },
   {
     "id": 20,
@@ -251,7 +253,9 @@
     "local": "Suiza",
     "visitante": "Bosnia y Herzegovina",
     "sede": "SoFi Stadium",
-    "ciudad": "Inglewood, CA"
+    "ciudad": "Inglewood, CA",
+    "canal_url": "https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8",
+    "canal_nombre": "RTVE La 1"
   },
   {
     "id": 24,
@@ -284,7 +288,9 @@
     "local": "Estados Unidos",
     "visitante": "Australia",
     "sede": "Lumen Field",
-    "ciudad": "Seattle, WA"
+    "ciudad": "Seattle, WA",
+    "canal_url": "https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8",
+    "canal_nombre": "RTVE La 1"
   },
   {
     "id": 27,
@@ -328,7 +334,9 @@
     "local": "Países Bajos",
     "visitante": "Suecia",
     "sede": "NRG Stadium",
-    "ciudad": "Houston, TX"
+    "ciudad": "Houston, TX",
+    "canal_url": "https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8",
+    "canal_nombre": "RTVE La 1"
   },
   {
     "id": 31,
@@ -416,7 +424,9 @@
     "local": "Argentina",
     "visitante": "Austria",
     "sede": "AT&T Stadium",
-    "ciudad": "Arlington, TX"
+    "ciudad": "Arlington, TX",
+    "canal_url": "https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8",
+    "canal_nombre": "RTVE La 1"
   },
   {
     "id": 39,
@@ -471,7 +481,9 @@
     "local": "Inglaterra",
     "visitante": "Ghana",
     "sede": "Gillette Stadium",
-    "ciudad": "Foxborough, MA"
+    "ciudad": "Foxborough, MA",
+    "canal_url": "https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8",
+    "canal_nombre": "RTVE La 1"
   },
   {
     "id": 44,
@@ -526,7 +538,9 @@
     "local": "Escocia",
     "visitante": "Brasil",
     "sede": "Hard Rock Stadium",
-    "ciudad": "Miami Gardens, FL"
+    "ciudad": "Miami Gardens, FL",
+    "canal_url": "https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8",
+    "canal_nombre": "RTVE La 1"
   },
   {
     "id": 49,
@@ -570,7 +584,9 @@
     "local": "Ecuador",
     "visitante": "Alemania",
     "sede": "MetLife Stadium",
-    "ciudad": "East Rutherford, NJ"
+    "ciudad": "East Rutherford, NJ",
+    "canal_url": "https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8",
+    "canal_nombre": "RTVE La 1"
   },
   {
     "id": 53,
@@ -669,7 +685,9 @@
     "local": "Uruguay",
     "visitante": "España",
     "sede": "Estadio Akron",
-    "ciudad": "Guadalajara, México"
+    "ciudad": "Guadalajara, México",
+    "canal_url": "https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8",
+    "canal_nombre": "RTVE La 1"
   },
   {
     "id": 62,
@@ -724,7 +742,9 @@
     "local": "Colombia",
     "visitante": "Portugal",
     "sede": "Hard Rock Stadium",
-    "ciudad": "Miami Gardens, FL"
+    "ciudad": "Miami Gardens, FL",
+    "canal_url": "https://rtvelivestream.rtve.es/rtvesec/la1/la1_main_dvr.m3u8",
+    "canal_nombre": "RTVE La 1"
   },
   {
     "id": 67,

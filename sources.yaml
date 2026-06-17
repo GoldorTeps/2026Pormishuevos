@@ -53,8 +53,9 @@ canales:
   # RTS1 Sénégal (proxy 69.64.57.208) — Senegal. Frame: RTS logo + "DAKAR 2026 J-138". Verificado 15/06.
   Senegal: http://69.64.57.208/rts1/playlist.m3u8
 
-  # KSA Sport 1 (aloula /9/) — Arabia Saudí. Frame: canal deportivo saudí. Verificado 15/06.
-  "Arabia Saudí": https://aloula-redirect.vercel.app/9/playlist.m3u8
+  # KSA Sport 1 (aloula /9/) — DESACTIVADO. El proxy aloula entrega DVR con 6h de retraso:
+  # ffmpeg captura contenido histórico, nunca el partido en vivo. 16/06: grabó galas 1984/2018.
+  # "Arabia Saudí": https://aloula-redirect.vercel.app/9/playlist.m3u8
 
   # El Trece Argentina (proxy a050) — Argentina. Frame: Copa 2026 LIVE football en pantalla. Verificado 15/06.
   Argentina: http://45.170.130.224:8000/play/a050/index.m3u8
