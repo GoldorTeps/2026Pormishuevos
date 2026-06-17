@@ -32,6 +32,10 @@ canales:
   # Ovacion TV — Uruguay. Canal dedicado Copa 2026. Frame: "LA COPA EN OVACION GRUPO G". Verificado 15/06.
   Uruguay:    http://cdn2.ujjina.com:1935/iptvovacion1/liveovacion1tv/playlist.m3u8
 
+  # RTL-TVI — Bélgica. Canal comercial belga francófono (RTL Group). Frame: logo RTL + timestamp vivo 11:38. Copa derechos: parciales (comparte con RTBF). Verificado 17/06.
+  # Akamai CDN: tvi-live-hls.akamaized.net, mismo patrón Bel RTL/Contact. No geo-bloqueado.
+  Bélgica: https://tvi-live-hls.akamaized.net/hls/live/2038650/TVI-Live-HLS/master.m3u8
+
   # RTI 1 — Costa de Marfil. TV pública nacional (proxy 69.64.57.208). Frame: logo "RTI 1" + programa CÔTE D'IVOIRE MARCHE. Verificado 17/06.
   # Reemplaza A+ Ivoire (http://69.64.57.208/atv) — RTI1 como emisor público cubre más partidos Copa.
   "Costa de Marfil": http://69.64.57.208/rti1/playlist.m3u8
