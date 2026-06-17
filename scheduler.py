@@ -53,7 +53,7 @@ def cargar():
 
 # ── Resolución de fuente ───────────────────────────────────────────────────────
 
-def resolver_fuente(partido, canales, comodin=None, comodin_nombre='comodin'):
+def resolver_fuente(partido, canales, comodin=None, comodin_nombre='comodin', cazetv=None):
     # Override por partido tiene máxima prioridad (RTVE, ARD específico, etc.)
     if partido.get('canal_url'):
         return partido['canal_url'], partido.get('canal_nombre', 'override')
@@ -62,7 +62,34 @@ def resolver_fuente(partido, canales, comodin=None, comodin_nombre='comodin'):
             return canales[equipo], equipo
     if comodin:
         return comodin, comodin_nombre
+    if cazetv:
+        return cazetv, 'CazéTV'
     return None, None
+
+
+def extraer_url_youtube(yt_url, nombre):
+    """Extrae la URL HLS real de un directo de YouTube via yt-dlp con geo-bypass Brasil."""
+    try:
+        r = subprocess.run(
+            ['yt-dlp', '--geo-bypass-country', 'BR',
+             '-f', 'best[protocol=m3u8_native]/best',
+             '--get-url', '--no-warnings', yt_url],
+            capture_output=True, text=True, timeout=90,
+        )
+        if r.returncode == 0:
+            urls = [l.strip() for l in r.stdout.strip().splitlines() if l.strip()]
+            if urls:
+                log.info(f"CazéTV URL OK para {nombre}")
+                return urls[0]
+        motivo = r.stderr.strip().splitlines()[-1] if r.stderr.strip() else 'sin output'
+        log.warning(f"CazéTV sin stream para {nombre}: {motivo}")
+    except subprocess.TimeoutExpired:
+        log.warning(f"CazéTV timeout (90s) para {nombre}")
+    except FileNotFoundError:
+        log.error("yt-dlp no encontrado — pip install yt-dlp")
+    except Exception as e:
+        log.error(f"CazéTV error inesperado: {e}")
+    return None
 
 
 # ── Nomenclatura ───────────────────────────────────────────────────────────────
@@ -205,6 +232,21 @@ def grabar_partido(partido, url, cfg):
         return
 
     os.makedirs(dir_partido, exist_ok=True)
+
+    # Si la fuente es YouTube, extraer URL real ahora (el stream solo existe en vivo)
+    if 'youtube.com' in url:
+        url = extraer_url_youtube(url, carpeta)
+        if not url:
+            ruta_nota = os.path.join(dir_partido, 'no_grabado.txt')
+            with open(ruta_nota, 'w') as f:
+                f.write(
+                    f":(  CazéTV no estaba en vivo al inicio del partido.\n\n"
+                    f"{partido['local']} vs {partido['visitante']}\n"
+                    f"{fecha}  {hora}\n"
+                )
+            log.warning(f"CazéTV sin stream en el momento del partido: {carpeta}")
+            return
+
     log.info(f"▶ INICIO: {carpeta}")
 
     hilos = []
@@ -255,21 +297,24 @@ def grabar_partido(partido, url, cfg):
 
 # ── Modo lista ─────────────────────────────────────────────────────────────────
 
-def modo_lista(partidos, canales, comodin=None, comodin_nombre='comodin'):
+def modo_lista(partidos, canales, comodin=None, comodin_nombre='comodin', cazetv=None):
     print(f"\n{'FECHA':<12} {'HORA':<6} {'LOCAL':<22} {'VISITANTE':<22} {'CANAL'}")
     print("─" * 90)
-    con_fuente = sin_fuente = 0
+    con_fuente = sin_fuente = cazetv_count = 0
     for p in partidos:
-        url, canal = resolver_fuente(p, canales, comodin, comodin_nombre)
+        url, canal = resolver_fuente(p, canales, comodin, comodin_nombre, cazetv)
         local = p['local'][:20]
         vis   = p['visitante'][:20]
-        if url:
+        if url and 'youtube.com' in url:
+            print(f"{p['fecha_es']:<12} {p['hora_es']:<6} {local:<22} {vis:<22} CazéTV (yt-dlp)")
+            cazetv_count += 1
+        elif url:
             print(f"{p['fecha_es']:<12} {p['hora_es']:<6} {local:<22} {vis:<22} {canal}")
             con_fuente += 1
         else:
             print(f"{p['fecha_es']:<12} {p['hora_es']:<6} {local:<22} {vis:<22} — sin fuente")
             sin_fuente += 1
-    print(f"\nCon fuente: {con_fuente}  |  Sin fuente (pérdida asumida): {sin_fuente}\n")
+    print(f"\nCon fuente: {con_fuente}  |  CazéTV (yt-dlp): {cazetv_count}  |  Sin fuente: {sin_fuente}\n")
 
 
 # ── Main ───────────────────────────────────────────────────────────────────────
@@ -282,8 +327,10 @@ def main():
     global log
     log = _setup_log()
 
+    cazetv = cfg.get('cazetv')
+
     if '--lista' in sys.argv:
-        modo_lista(partidos, canales, comodin, cfg.get('comodin_nombre', 'comodin'))
+        modo_lista(partidos, canales, comodin, cfg.get('comodin_nombre', 'comodin'), cazetv)
         return
 
     # Instancia única — abortar si ya hay un scheduler corriendo
@@ -323,7 +370,7 @@ def main():
     programados = perdidos = 0
 
     for p in partidos:
-        url, canal = resolver_fuente(p, canales, comodin, cfg.get('comodin_nombre', 'comodin'))
+        url, canal = resolver_fuente(p, canales, comodin, cfg.get('comodin_nombre', 'comodin'), cazetv)
         if url is None:
             perdidos += 1
             t = threading.Thread(

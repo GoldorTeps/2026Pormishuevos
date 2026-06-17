@@ -2,6 +2,10 @@ destino: /mnt/khauron/mundial2026
 duracion_min: 120  # fase de grupos: 90 min + 30 de margen (sin prórroga)
 antelacion_min: 2
 
+# CazéTV — emite los 104 partidos en YouTube (geo: Brasil). yt-dlp + geo-bypass extrae la URL en caliente.
+# Se usa como fallback final cuando ningún canal de país está disponible.
+cazetv: https://www.youtube.com/@cazeTv/live
+
 
 audio:
   ser:      https://playerservices.streamtheworld.com/api/livestream-redirect/CADENASER.mp3
