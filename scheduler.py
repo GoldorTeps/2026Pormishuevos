@@ -53,7 +53,7 @@ def cargar():
 
 # ── Resolución de fuente ───────────────────────────────────────────────────────
 
-def resolver_fuente(partido, canales, comodin=None):
+def resolver_fuente(partido, canales, comodin=None, comodin_nombre='comodin'):
     # Override por partido tiene máxima prioridad (RTVE, ARD específico, etc.)
     if partido.get('canal_url'):
         return partido['canal_url'], partido.get('canal_nombre', 'override')
@@ -61,7 +61,7 @@ def resolver_fuente(partido, canales, comodin=None):
         if equipo in canales:
             return canales[equipo], equipo
     if comodin:
-        return comodin, 'TUDN'
+        return comodin, comodin_nombre
     return None, None
 
 
@@ -255,12 +255,12 @@ def grabar_partido(partido, url, cfg):
 
 # ── Modo lista ─────────────────────────────────────────────────────────────────
 
-def modo_lista(partidos, canales, comodin=None):
+def modo_lista(partidos, canales, comodin=None, comodin_nombre='comodin'):
     print(f"\n{'FECHA':<12} {'HORA':<6} {'LOCAL':<22} {'VISITANTE':<22} {'CANAL'}")
     print("─" * 90)
     con_fuente = sin_fuente = 0
     for p in partidos:
-        url, canal = resolver_fuente(p, canales, comodin)
+        url, canal = resolver_fuente(p, canales, comodin, comodin_nombre)
         local = p['local'][:20]
         vis   = p['visitante'][:20]
         if url:
@@ -283,7 +283,7 @@ def main():
     log = _setup_log()
 
     if '--lista' in sys.argv:
-        modo_lista(partidos, canales, comodin)
+        modo_lista(partidos, canales, comodin, cfg.get('comodin_nombre', 'comodin'))
         return
 
     # Instancia única — abortar si ya hay un scheduler corriendo
@@ -323,7 +323,7 @@ def main():
     programados = perdidos = 0
 
     for p in partidos:
-        url, canal = resolver_fuente(p, canales, comodin)
+        url, canal = resolver_fuente(p, canales, comodin, cfg.get('comodin_nombre', 'comodin'))
         if url is None:
             perdidos += 1
             t = threading.Thread(

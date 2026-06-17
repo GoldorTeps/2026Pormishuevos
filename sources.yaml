@@ -57,7 +57,8 @@ canales:
   # ffmpeg captura contenido histórico, nunca el partido en vivo. 16/06: grabó galas 1984/2018.
   # "Arabia Saudí": https://aloula-redirect.vercel.app/9/playlist.m3u8
 
-  # El Trece Argentina (proxy a050) — Argentina. Frame: Copa 2026 LIVE football en pantalla. Verificado 15/06.
+  # Unicanal Paraguay (proxy a050) — asignado a Argentina. Confirmado Copa 2026 en vivo (Argentina vs Argelia ✓).
+  # Canal paraguayo con derechos Copa — emite partidos de Argentina y Paraguay. Verificado 17/06.
   Argentina: http://45.170.130.224:8000/play/a050/index.m3u8
 
   # TyC Sports Argentina (proxy a020) — confirmado logo TyC Sports. Verificado 15/06.
@@ -69,5 +70,11 @@ canales:
   # SNT Paraguay (proxy a013) — Paraguay. Frame: logo "SNT | Paraguay" confirmado. Verificado 15/06.
   Paraguay: http://45.170.130.224:8000/play/a013/index.m3u8
 
+# Comodín — SNT Paraguay (El Trece, Canal 13). Tiene derechos Copa junto con GEN.
+# El 16/06 cubrió 3 de 4 partidos del día. Se usa para todos los partidos sin canal específico.
+# Riesgo: si el partido está solo en GEN (no en SNT), grabará programación regular.
+comodin: http://45.170.130.224:8000/play/a013/index.m3u8
+comodin_nombre: SNT Paraguay
+
 # Nota: Canales confirmados con captura de frame y ffprobe.
-# Sin canal confirmado: Colombia, Países Bajos, Bélgica, Escocia, Estados Unidos, Argentina (algunos match), y fase KO.
+# Estrategia: canal → parrilla (no equipo → canal). TV pública = acceso libre = grabamos su parrilla.
