@@ -32,8 +32,9 @@ canales:
   # Ovacion TV — Uruguay. Canal dedicado Copa 2026. Frame: "LA COPA EN OVACION GRUPO G". Verificado 15/06.
   Uruguay:    http://cdn2.ujjina.com:1935/iptvovacion1/liveovacion1tv/playlist.m3u8
 
-  # A+ Ivoire — Costa de Marfil. Canal deportivo. Frame: "CONVOCATION" fútbol. Verificado 15/06.
-  "Costa de Marfil": http://69.64.57.208/atv/playlist.m3u8
+  # RTI 1 — Costa de Marfil. TV pública nacional (proxy 69.64.57.208). Frame: logo "RTI 1" + programa CÔTE D'IVOIRE MARCHE. Verificado 17/06.
+  # Reemplaza A+ Ivoire (http://69.64.57.208/atv) — RTI1 como emisor público cubre más partidos Copa.
+  "Costa de Marfil": http://69.64.57.208/rti1/playlist.m3u8
 
   # Arena Sport 1 BH — Bosnia y Herzegovina. Frame: Copa 2026 BEL 0-0 ECU en directo. Verificado 15/06.
   "Bosnia y Herzegovina": https://nl1.nghk.ai/ArenaSport1BH/index.m3u8
@@ -79,6 +80,25 @@ canales:
 
   # Uzbekistán Sport (cinerama.uz) — Uzbekistán. Anuncio "СМОТРИ ЧЕМПИОНАТ МИРА 2026" = confirma Copa. Verificado 17/06.
   Uzbekistán: https://stream8.cinerama.uz/1004/tracks-v1a1/mono.m3u8
+
+  # GTV Ghana (proxy 69.64.57.208/gtv) — Ghana. Frame: números Ghanianos (0244186612), telenovela local. Verificado 17/06.
+  # GTV es la emisora pública de Ghana (Ghana Broadcasting Corp). Copa derechos confirmados: "gtv sports tv covering WC 2026".
+  Ghana: http://69.64.57.208/gtv/playlist.m3u8
+
+  # RTNC — RD Congo (proxy 69.64.57.208/rtnc). Frame: logo "RTNC | RDC", presentadora en vivo. Verificado 17/06.
+  "RD Congo": http://69.64.57.208/rtnc/playlist.m3u8
+
+  # [SIN EQUIPO EN COPA] VX/Venezolana — Venezuela (proxy a025). Frame: CADENA NACIONAL. No asignado — Venezuela no clasificó.
+  # [SIN EQUIPO EN COPA] Canal boliviano (proxy a014). Bolivia no clasificó — no asignado.
+
+  # Canal 5 Televicentro — Honduras. [Not 24/7: stream activo SOLO durante emisiones en vivo]. Derechos Copa: 40 partidos. Verificado 17/06.
+  Honduras: https://mdstrm.com/live-stream-playlist/6287fda8ea3b8b397d1ca2ed.m3u8
+
+  # TVJ — Jamaica. [Not 24/7: stream activo durante emisiones]. TV nacional Jamaica. Verificado 17/06.
+  Jamaica: https://vod2live.univtec.com/manifest/a99a1804-dc83-411f-8c1c-b62f08cdfa59.m3u8
+
+  # Tele Caraïbes / TNH Haití (bozztv). [Not 24/7: pantalla negra offline, activo durante emisiones]. Verificado 17/06.
+  Haití: https://bozztv.com/dvrfl03/hdirect/hdirect-telecaraibes/index.m3u8
 
   # ČT Sport HD — República Checa. Frame: logo "ČT sport HD", partido CUB vs CZE softball. Confirmado. Verificado 17/06.
   Chequia: http://88.212.15.19/live/test_ctsport_25p/playlist.m3u8
